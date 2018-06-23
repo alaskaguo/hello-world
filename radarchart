@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jun 16 22:41:18 2018
+
+@author: 郭峰医生
+"""
+import pandas as pd
+from radar import radarchart
+import matplotlib.pyplot as plt
+df = pd.read_csv('E:/Python_work/radarchart/residents_score.csv')
+df1 = df[df['住院医姓名'] == 1]
+for date in df1['提交答卷时间']:
+    dataseries = df1.loc[df1['提交答卷时间'] == date]
+    residentdata = dataseries[['提交答卷时间','1 问诊技巧','2体格检查技巧','3人道关怀','4临床判断能力',
+                       '5沟通交流能力','6组织能力与效率','7临床综合能力',
+                       '8临床基础知识问答']]
+    radarchart(residentdata)
+    plt.savefig('E:/Python_work/radarchart/'+date[:10].replace('/','')+'.tif',
+                dpi=300, bbox_inches='tight')  
